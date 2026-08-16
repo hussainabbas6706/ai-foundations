@@ -11,7 +11,8 @@ This repo is the mathematical and conceptual foundation for my GenAI and Agentic
 - `discrete-structures/` — Logic, graph theory, induction notes and problems
 - `prompt-engineering/` — Zero-shot, few-shot, CoT, structured outputs experiments
 - `embeddings/` — Semantic similarity, vector search, chunking experiments
+- `llm-apis/` — OpenAI API, Google Gemini API
 
 ## Stack
 
-Python · NumPy · Jupyter · OpenAI API
+Python · NumPy · Jupyter · OpenAI API · Google Gemini API
