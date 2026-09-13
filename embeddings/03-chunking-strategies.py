@@ -90,6 +90,27 @@ def parent_child_chunking(text: str, child_size: int = 100) -> list[dict]:
 
     return structured_data
 
+# 5. Sliding Window Chunking
+def sliding_window_chunking(text: str, window_size: int = 150, overlap: int = 40) -> list[str]:
+    """
+    Splits text using a fixed window size with a sliding step (overlap).
+    Prevents context loss at chunk boundaries.
+    """
+    clean_text = text.strip().replace("\n", " ")
+    step = window_size - overlap
+    
+    if step <= 0:
+        raise ValueError("Window size must be strictly greater than overlap size.")
+        
+    chunks = []
+    for i in range(0, len(clean_text), step):
+        chunk = clean_text[i:i + window_size]
+        chunks.append(chunk)
+        if i + window_size >= len(clean_text):
+            break
+            
+    return chunks
+
 if __name__ == "__main__":
     print("=== 1. FIXED-SIZE CHUNKING ===")
     fixed_chunks = fixed_size_chunking(raw_text, chunk_size=150)
@@ -112,3 +133,8 @@ if __name__ == "__main__":
     for item in pc_data[:3]:  # Print first 3 relations
         print(f"Child ID: {item['child_id']} -> '{item['child_text']}'")
         print(f"Parent Ref: {item['parent_id']} -> '{item['parent_text'][:60]}...'\n")
+
+    print("=== 5. SLIDING WINDOW CHUNKING ===")
+    sliding_chunks = sliding_window_chunking(raw_text, window_size=150, overlap=40)
+    for idx, chunk in enumerate(sliding_chunks, start=1):
+        print(f"Window Chunk {idx} ({len(chunk)} chars): {chunk}\n")
